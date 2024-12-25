@@ -1,0 +1,220 @@
+CoreDNS Knowledge Base Article
+
+Introduction to DNS
+
+The Domain Name System (DNS) is a hierarchical and decentralized naming system used to translate human-readable domain names (e.g., example.com) into IP addresses (e.g., 192.168.1.1) that computers use to identify each other on the network. DNS is a critical component of the internet and any networked environment, enabling seamless communication between devices and services.
+
+In Kubernetes, DNS is essential for service discovery, allowing pods to communicate using service names instead of IP addresses. CoreDNS is the default DNS server used in Kubernetes clusters for resolving service names and other DNS queries.
+
+What is CoreDNS?
+
+CoreDNS is a flexible, extensible DNS server designed to integrate seamlessly with Kubernetes. It is written in Go and offers a plugin-based architecture, enabling various functionalities such as load balancing, caching, and more. CoreDNS is lightweight and highly configurable, making it ideal for cloud-native environments.
+
+CoreDNS in Kubernetes
+
+CoreDNS in Kubernetes is deployed as a Deployment object and typically runs as a set of pods in the kube-system namespace. It uses ConfigMaps to define its configuration and serves DNS queries for the cluster's domain. Kubernetes automatically configures CoreDNS to resolve internal service names and provide name resolution for external domains.
+
+CoreDNS Configuration
+
+CoreDNS configurations are managed through a ConfigMap named coredns in the kube-system namespace. A typical CoreDNS configuration file (Corefile) may look like this:
+
+.:53 {
+    errors
+    health
+    kubernetes cluster.local in-addr.arpa ip6.arpa {
+        pods insecure
+        fallthrough in-addr.arpa ip6.arpa
+    }
+    forward . /etc/resolv.conf
+    cache 30
+    loop
+    reload
+    loadbalance
+}
+
+Key Plugins in CoreDNS Configuration:
+
+errors: Logs errors to stdout.
+
+health: Exposes a health endpoint for monitoring.
+
+kubernetes: Integrates CoreDNS with Kubernetes for service name resolution.
+
+forward: Forwards queries to an upstream DNS server.
+
+cache: Caches DNS responses to improve performance.
+
+reload: Automatically reloads the configuration on changes.
+
+loadbalance: Load balances DNS responses.
+
+Frequently Occurring Issues and Troubleshooting
+
+1. CoreDNS Pods Not Running
+
+Symptoms: CoreDNS pods are stuck in Pending or CrashLoopBackOff.
+
+Possible Causes:
+
+Insufficient resources in the cluster.
+
+Network policies blocking communication.
+
+Errors in the Corefile configuration.
+
+Troubleshooting Steps:
+
+Check pod status:
+
+kubectl get pods -n kube-system
+
+Inspect pod logs:
+
+kubectl logs <coredns-pod-name> -n kube-system
+
+Verify resource availability:
+
+kubectl describe pod <coredns-pod-name> -n kube-system
+
+Check for syntax errors in the Corefile:
+
+kubectl describe configmap coredns -n kube-system
+
+Restart the pods if necessary:
+
+kubectl rollout restart deployment coredns -n kube-system
+
+2. DNS Resolution Failures
+
+Symptoms: Pods cannot resolve service names or external domains.
+
+Possible Causes:
+
+Incorrect Corefile configuration.
+
+Issues with upstream DNS servers.
+
+Network connectivity problems.
+
+Troubleshooting Steps:
+
+Test DNS resolution within a pod:
+
+kubectl exec -it <pod-name> -- nslookup <service-name>
+
+Verify the Corefile configuration, especially the kubernetes and forward plugins.
+
+Check upstream DNS server availability:
+
+nslookup google.com
+
+Ensure network policies or firewalls are not blocking DNS traffic.
+
+Restart the CoreDNS pods:
+
+kubectl rollout restart deployment coredns -n kube-system
+
+3. High DNS Latency
+
+Symptoms: DNS queries take a long time to resolve.
+
+Possible Causes:
+
+Lack of caching.
+
+Overloaded CoreDNS pods.
+
+Issues with upstream DNS servers.
+
+Troubleshooting Steps:
+
+Enable caching in the Corefile:
+
+cache 30
+
+Scale CoreDNS pods based on load:
+
+kubectl scale deployment coredns --replicas=<desired-count> -n kube-system
+
+Monitor CoreDNS performance using metrics.
+
+Verify the health of upstream DNS servers.
+
+4. CoreDNS Configuration Not Updating
+
+Symptoms: Changes to the Corefile are not reflected in CoreDNS behavior.
+
+Possible Causes:
+
+Misconfigured ConfigMap.
+
+CoreDNS pods not reloading the configuration.
+
+Troubleshooting Steps:
+
+Edit the ConfigMap:
+
+kubectl edit configmap coredns -n kube-system
+
+Ensure the reload plugin is enabled in the Corefile.
+
+Restart the CoreDNS deployment:
+
+kubectl rollout restart deployment coredns -n kube-system
+
+5. NodeLocal DNS Cache Issues
+
+Symptoms: DNS resolution is slow or fails intermittently.
+
+Possible Causes:
+
+NodeLocal DNS Cache is not properly configured.
+
+CoreDNS pods are overloaded.
+
+Troubleshooting Steps:
+
+Verify NodeLocal DNS Cache is running:
+
+kubectl get pods -n kube-system -l k8s-app=node-local-dns
+
+Check the NodeLocal DNS configuration.
+
+Inspect logs for NodeLocal DNS Cache:
+
+kubectl logs <node-local-dns-pod-name> -n kube-system
+
+Restart the NodeLocal DNS pods if needed:
+
+kubectl rollout restart daemonset node-local-dns -n kube-system
+
+Monitoring CoreDNS
+
+CoreDNS exposes metrics that can be scraped using Prometheus. Key metrics include:
+
+coredns_dns_request_count_total: Total DNS requests received.
+
+coredns_dns_request_duration_seconds: Latency of DNS requests.
+
+coredns_cache_hits_total: Cache hits.
+
+Best Practices
+
+Use the cache plugin to improve performance.
+
+Enable the health plugin for monitoring.
+
+Regularly update CoreDNS to the latest stable version.
+
+Use NodeLocal DNS Cache for large clusters.
+
+Monitor CoreDNS performance metrics.
+
+References
+
+Kubernetes Official Documentation: CoreDNS
+
+CoreDNS GitHub Repository: CoreDNS
+
+Troubleshooting DNS in Kubernetes: DNS Debugging
+
