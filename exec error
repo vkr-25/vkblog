@@ -1,3 +1,7 @@
 k exec pod/coredns-754dd6b89f-d5bg7 -n kube-system -it /bin/bash
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 error: Internal error occurred: error executing command in container: failed to exec in container: failed to start exec "6d6b6a2d1ae5ba99a90a49c53e584a30e4b13b0e84e695e6cfc9fd4976722ca8": OCI runtime exec failed: exec failed: unable to start container process: exec: "/bin/bash": stat /bin/bash: no such file or directory: unknown
+
+
+
+kubectl exec pod/coredns-754dd6b89f-d5bg7 -n kube-system -- cat /etc/coredns/Corefile
