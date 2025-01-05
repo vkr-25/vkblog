@@ -1,7 +1,22 @@
-k exec pod/coredns-754dd6b89f-d5bg7 -n kube-system -it /bin/bash
+k exec coredns-754dd6b89f-d5bg7 -n kube-system -it -- /bin/bash
+error: Internal error occurred: error executing command in container: failed to exec in container: failed to start exec "ad797dbfc63cf46ae187fbba0d318eff5f7bd43968920b539165fbd798a41964": OCI runtime exec failed: exec failed: unable to start container process: exec: "/bin/bash": stat /bin/bash: no such file or directory: unknown
+[alamv01@amrvlp000005873 ~]$ k exec coredns-754dd6b89f-d5bg7 -n kube-system -c coredns -it -- /bin/bash
+error: Internal error occurred: error executing command in container: failed to exec in container: failed to start exec "14f9f48393489da97179e701e018e91dfe53d732da54520aedf27c971f3922c9": OCI runtime exec failed: exec failed: unable to start container process: exec: "/bin/bash": stat /bin/bash: no such file or directory: unknown
+[alamv01@amrvlp000005873 ~]$ k exec coredns-754dd6b89f-d5bg7 -n kube-system -c coredns -it
+error: you must specify at least one command for the container
+[alamv01@amrvlp000005873 ~]$ k exec coredns-754dd6b89f-d5bg7 -n kube-system -c coredns -- cat /etc/coredns/corefile
+error: Internal error occurred: error executing command in container: failed to exec in container: failed to start exec "fa882cfb7f8b8578da4bd953a01e95dde74fc98ce8969b6cf74f2fd78ccf0508": OCI runtime exec failed: exec failed: unable to start container process: exec: "cat": executable file not found in $PATH: unknown
+[alamv01@amrvlp000005873 ~]$ k exec pod/coredns-754dd6b89f-d5bg7 -n kube-system -it /bin/bash
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 error: Internal error occurred: error executing command in container: failed to exec in container: failed to start exec "6d6b6a2d1ae5ba99a90a49c53e584a30e4b13b0e84e695e6cfc9fd4976722ca8": OCI runtime exec failed: exec failed: unable to start container process: exec: "/bin/bash": stat /bin/bash: no such file or directory: unknown
-
-
-
-kubectl exec pod/coredns-754dd6b89f-d5bg7 -n kube-system -- cat /etc/coredns/Corefile
+[alamv01@amrvlp000005873 ~]$ k exec pod/coredns-754dd6b89f-d5bg7 -n kube-system -it /bin/sh
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+error: Internal error occurred: error executing command in container: failed to exec in container: failed to start exec "dcc833f4584281e2acda380a4a969f30d34438f7b31ae594be532da41e50495b": OCI runtime exec failed: exec failed: unable to start container process: exec: "/bin/sh": stat /bin/sh: no such file or directory: unknown
+[alamv01@amrvlp000005873 ~]$ k exec pod/coredns-754dd6b89f-d5bg7 -n kube-system -- ls /
+error: Internal error occurred: error executing command in container: failed to exec in container: failed to start exec "ffa344cd6235c49dde72abffce8868be5216c7b0f34ce307f8904c8a2e802299": OCI runtime exec failed: exec failed: unable to start container process: exec: "ls": executable file not found in $PATH: unknown
+[alamv01@amrvlp000005873 ~]$ k exec pod/coredns-754dd6b89f-d5bg7 -n kube-system -- env
+error: Internal error occurred: error executing command in container: failed to exec in container: failed to start exec "50f838f2ee1d19901167dd38ef6bdec3e1d0646933f3fe1252a16d8ce802f005": OCI runtime exec failed: exec failed: unable to start container process: exec: "env": executable file not found in $PATH: unknown
+[alamv01@amrvlp000005873 ~]$ kubectl exec pod/coredns-754dd6b89f-d5bg7 -n kube-system -- cat /etc/coredns/Corefile
+error: Internal error occurred: error executing command in container: failed to exec in container: failed to start exec "db57c9a2eec3fed972c8dfa655d874b4a1a37730e9d09efcf9d3db53fd6e2d9c": OCI runtime exec failed: exec failed: unable to start container process: exec: "cat": executable file not found in $PATH: unknown
+[alamv01@amrvlp000005873 ~]$ k exec pod/coredns-754dd6b89f-d5bg7 -n kube-system -it -- /bin/sh
+error: Internal error occurred: error executing command in container: failed to exec in container: failed to start exec "3006406fb386b93721ad5f1f5d2784b01afe6356bdb4b4ba365c70d78c6a0927": OCI runtime exec failed: exec failed: unable to start container process: exec: "/bin/sh": stat /bin/sh: no such file or directory: unknown
