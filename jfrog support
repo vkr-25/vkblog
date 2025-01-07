@@ -1,12 +1,3 @@
-https://jfrog.com/help/r/artifactory-what-is-the-uploads-folder-under-artifactory-docker-repositories/artifactory-what-is-the-_uploads-folder-under-artifactory-docker-repositories
-
-
-
-
-When you push a Docker image to JFrog Artifactory, an _uploads folder appears within your Docker repository. This folder temporarily stores the image layers during the upload process. Docker uploads images in two steps: first, it uploads the individual layers to the _uploads directory; once all layers are uploaded, it uploads the signed manifest, which references these layers to assemble the complete image. 
-JFROG
-
-After the manifest is uploaded, Artifactory moves the layers from the _uploads directory to their final locations within the repository. The _uploads folder is then cleaned up automatically to free up space. By default, Artifactory schedules a cleanup job to remove any residual files in the _uploads directory every 24 hours. This interval can be adjusted by modifying the artifactory.docker.cleanup.uploadsTmpFolderJobSecs parameter in the Artifactory system properties. 
-JFROG
-
-In summary, the _uploads folder is a temporary storage area for Docker image layers during the upload process in Artifactory. It ensures that all parts of the image are correctly uploaded before finalizing and storing the complete image in the repository.
+Regarding cert issue with sso call..
+We are calling .net API deployed in EKS POD (behind LB).. the request is successfully landed in container. From there we are calling SSO url which is giving the follwoing error:
+System.Security.Authentication.AuthenticationException: The remote certificate is invalid because of errors in the certificate chain: UntrustedRoot
