@@ -25,3 +25,44 @@ Drive for Results
 
 
 Functional Excellence
+
+
+
+
+
+
+Here’s a professional and well-rounded response to each of the goals for your appraisal evaluation:
+
+1. Active Participation in Technology/Domain Excellence
+	•	Actively participated in CM Stories by sharing technical challenges and solutions from my domain.
+	•	Contributed to Process Improvements (PIs) by identifying inefficiencies in the ticket resolution process and suggesting optimizations.
+	•	Worked on creating Reusable Assets, such as Terraform templates for AWS resources and Kubernetes YAML manifests, to enhance team productivity.
+	•	Participated in communication skill trainings to improve collaboration with clients and stakeholders.
+	•	Delivered a flash talk session on EKS upgrades and Portworx troubleshooting to enhance knowledge sharing within the team.
+
+2. Compliance to Security
+	•	Ensured adherence to TCS ISM and account-level security guidelines with zero security-related incidents reported.
+	•	Regularly conducted audits and compliance checks for Artifactory repositories, EKS clusters, and IAM configurations to avoid vulnerabilities.
+	•	Provided proactive support to ensure no negative impact on security during infrastructure changes.
+
+3. Suggest Automation or Service Improvement Ideas and Contribute in its Implementation
+	•	Suggested and implemented automation scripts in Python to streamline log collection and analysis across multiple clusters.
+	•	Developed a Terraform-based reusable module to simplify EBS volume creation for Portworx setups.
+	•	Proposed Sysdig alert automation to notify teams in real-time when resource utilization exceeds thresholds, improving SLA adherence.
+
+4. Effective Collaboration Across Teams and Knowledge Sharing
+	•	Conducted cross-team knowledge-sharing sessions on best practices for Kubernetes troubleshooting and AWS CloudFormation templates.
+	•	Collaborated with Sysdig and Artifactory teams to address critical incidents, ensuring seamless coordination across groups.
+	•	Shared cross-functional insights during regular team sync-ups to enhance understanding of interdependencies between EKS, Portworx, and ASG configurations.
+
+5. Following All Required Standards/Guidelines
+	•	Consistently adhered to TCS/client-specified guidelines for operations support, including timely ticket resolution within SLAs.
+	•	Followed change management protocols rigorously during infrastructure upgrades, cluster decommissioning, and other major tasks.
+	•	Maintained high standards in documentation for activities such as ECR push/pull workflows and ASG configuration updates.
+
+6. RTO Compliance
+	•	Maintained 100% compliance with RTO policy, working 5 days a week from the office for offshore assignments.
+	•	Ensured seamless coordination between onsite and offshore teams, even when working from the office, to maintain operational efficiency.
+
+This response highlights your contributions while tying them directly to your manager’s expectations. Let me know if you’d like adjustments!
+
