@@ -1,0 +1,23 @@
+import requests
+import json
+
+# Artifactory credentials and instance details
+JFROG_URL = "https://artifactory.pfizer.com/artifactory"
+USERNAME = "alamv01"
+PASSWORD = "your-password"
+
+# API endpoint to fetch all groups
+GROUPS_API_URL = f"{JFROG_URL}/api/security/groups"
+
+# Fetch group details
+response = requests.get(GROUPS_API_URL, auth=(USERNAME, PASSWORD))
+
+if response.status_code == 200:
+    groups = response.json()
+    group_names = [group['name'] for group in groups]  # Extract all group names
+
+    print("Extracted Group Names:")
+    for name in group_names:
+        print(name)
+else:
+    print(f"Error fetching group details: {response.status_code}, {response.text}")
